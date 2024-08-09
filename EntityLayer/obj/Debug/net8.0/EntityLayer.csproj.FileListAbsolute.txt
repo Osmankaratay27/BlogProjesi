@@ -1,0 +1,12 @@
+C:\BlogProje\BlogProjesi\EntityLayer\bin\Debug\net8.0\EntityLayer.deps.json
+C:\BlogProje\BlogProjesi\EntityLayer\bin\Debug\net8.0\EntityLayer.dll
+C:\BlogProje\BlogProjesi\EntityLayer\bin\Debug\net8.0\EntityLayer.pdb
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.AssemblyInfoInputs.cache
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.AssemblyInfo.cs
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.csproj.CoreCompileInputs.cache
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.sourcelink.json
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.dll
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\refint\EntityLayer.dll
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\EntityLayer.pdb
+C:\BlogProje\BlogProjesi\EntityLayer\obj\Debug\net8.0\ref\EntityLayer.dll

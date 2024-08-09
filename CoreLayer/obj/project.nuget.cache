@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Hit5MGjAtLBU9RydeTnyO9bOe6JcAPY1SFwBxK3pR1mordCdcnvNHYqG1+q66eL53M6w7br3Msc4yFn7c7ESJQ==",
+  "success": true,
+  "projectFilePath": "C:\\BlogProje\\BlogProjesi\\CoreLayer\\CoreLayer.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: An error occurred while sending the request."
+    }
+  ]
+}

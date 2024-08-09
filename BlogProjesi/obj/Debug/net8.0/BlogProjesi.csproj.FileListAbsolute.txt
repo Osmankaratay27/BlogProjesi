@@ -406,3 +406,4 @@ C:\BlogProje\BlogProjesi\BlogProjesi\obj\Debug\net8.0\refint\BlogProjesi.dll
 C:\BlogProje\BlogProjesi\BlogProjesi\obj\Debug\net8.0\BlogProjesi.pdb
 C:\BlogProje\BlogProjesi\BlogProjesi\obj\Debug\net8.0\BlogProjesi.genruntimeconfig.cache
 C:\BlogProje\BlogProjesi\BlogProjesi\obj\Debug\net8.0\ref\BlogProjesi.dll
+C:\BlogProje\BlogProjesi\BlogProjesi\obj\Debug\net8.0\BlogProjesi.sourcelink.json
