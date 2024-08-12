@@ -11,7 +11,7 @@ namespace BlogProjesi.Controllers
         {
            
 
-            var values=bm.GetList();
+            var values=bm.GetBlogListWithCategory();
             return View(values);
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-	public class BlogManager : IBlogService
+    public class BlogManager : IBlogService
 	{
 		IBlogDal _blogDal;
 
@@ -33,7 +33,12 @@ namespace BusinessLayer.Concrete
 			throw new NotImplementedException();
 		}
 
-		public Blog GetById(int id)
+        public List<Blog> GetBlogListWithCategory()
+        {
+           return _blogDal.GetListWithCategory();
+        }
+
+        public Blog GetById(int id)
 		{
 			throw new NotImplementedException();
 		}
