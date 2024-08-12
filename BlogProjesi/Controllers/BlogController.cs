@@ -8,10 +8,10 @@ namespace BlogProjesi.Controllers
     {
         public IActionResult Index()
         {
-            BlogManager bm = new BlogManager(new EfBlogRepository());
+            //BlogManager bm = new BlogManager(new EfBlogRepository());
 
-            var values=bm.GetList();
-            return View(values);
+            //var values=bm.GetList();
+            return View();
         }
     }
 }
