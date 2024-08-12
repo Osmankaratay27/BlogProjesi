@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogProjesi.Controllers
 {
@@ -6,7 +8,10 @@ namespace BlogProjesi.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            BlogManager bm = new BlogManager(new EfBlogRepository());
+
+            var values=bm.GetList();
+            return View(values);
         }
     }
 }
