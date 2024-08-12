@@ -11,6 +11,14 @@
 /BlogProjesi/obj/Debug/net8.0/BlogProjesi.dll
 /BlogProjesi/bin
 /BlogProjesi/obj
+/BusinessLayer/bin
+/BusinessLayer/obj
+/DataAccessLayer/bin
+/DataAccessLayer/obj
+/EntityLayer/bin
+/EntityLayer/obj
+/CoreLayer/bin
+/CoreLayer/obj
 /bin
 /obj
 /BlogProjesi/bin/Debug/net8.0/BlogProjesi.dll
