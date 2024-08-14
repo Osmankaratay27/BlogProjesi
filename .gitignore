@@ -1,6 +1,10 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
+/BlogProje/BlogProjesi/.vs
+/BlogProje/BlogProjesi/.vs/BlogProjesi
+/BlogProje/BlogProjesi/.vs/BlogProjesi/DesignTimeBuild
+/BlogProje/BlogProjesi/.vs/BlogProjesi/FileContentIndex
 /.vs
 /.vs/BlogProjesi/DesignTimeBuild
 /.vs/BlogProjesi/FileContentIndex
