@@ -8,5 +8,17 @@ namespace BlogProjesi.Controllers
         {
             return View();
         }
+        public IActionResult Test()
+        {
+            return View();
+        }
+        public IActionResult WriterNavbarPartial()
+        {
+            return PartialView();
+        }
+        public IActionResult WriterFooterPartial()
+        {
+            return PartialView();
+        }
     }
 }
