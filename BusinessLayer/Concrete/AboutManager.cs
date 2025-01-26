@@ -18,9 +18,29 @@ namespace BusinessLayer.Concrete
             this.aaboutDal = aaboutDal;
         }
 
+        public About GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<About> GetList()
         {
            return aaboutDal.GetListAll();
+        }
+
+        public void TAdd(About t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TDelete(About t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TUpdate(About t)
+        {
+            throw new NotImplementedException();
         }
     }
 }
