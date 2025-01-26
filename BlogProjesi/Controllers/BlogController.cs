@@ -6,17 +6,22 @@ namespace BlogProjesi.Controllers
 {
     public class BlogController : Controller
     {
-		BlogManager bm = new BlogManager(new EfBlogRepository());
-		public IActionResult Index()
+        BlogManager bm = new BlogManager(new EfBlogRepository());
+        public IActionResult Index()
         {
-            var values=bm.GetBlogListWithCategory();
+            var values = bm.GetBlogListWithCategory();
             return View(values);
         }
 
         public IActionResult BlogReadAll(int id)
         {
-            ViewBag.Id = id;    
-            var values=bm.GetBlogByID(id);
+            ViewBag.Id = id;
+            var values = bm.GetBlogByID(id);
+            return View(values);
+        }
+        public IActionResult BlogListByWriter()
+        {
+            var values = bm.GetBlogListByWriter(1);
             return View(values);
         }
     }
