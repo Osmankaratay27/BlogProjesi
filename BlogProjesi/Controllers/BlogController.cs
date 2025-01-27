@@ -4,6 +4,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 
 namespace BlogProjesi.Controllers
@@ -25,12 +26,20 @@ namespace BlogProjesi.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var values = bm.GetBlogListByWriter(1);
+            var values = bm.GetBlogListWtihCategoryByWriterBm(1);
             return View(values);
         }
         [HttpGet]
         public IActionResult BlogAdd()
         {
+            CategoryManager cm= new CategoryManager(new EfCategoryRepository());    
+            List<SelectListItem> categoryValues=(from x in cm.GetList()
+                                                 select new SelectListItem
+                                                 {
+                                                     Text=x.CategoryName,
+                                                     Value=x.CategoryID.ToString()
+                                                 }).ToList();
+            ViewBag.cv = categoryValues;
             return View();
         }
         [HttpPost]
@@ -58,6 +67,7 @@ namespace BlogProjesi.Controllers
          
              return View();
         }
+     
 
     }
 }
