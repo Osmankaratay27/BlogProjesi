@@ -9,11 +9,7 @@ namespace BusinessLayer.Abstract
 {
 	public interface IBlogService:IGenericService<Blog>
 	{
-		//void BlogAdd(Blog blog);
-		//void BlogUpdate(Blog blog);
-		//void BlogDelete(Blog blog);
-		//List<Blog> GetList();
-		//Blog GetById(int id);
+	
 		List<Blog> GetBlogListWithCategory();
 		List<Blog> GetBlogListByWriter(int id);
 		List<Blog> GetBlogListWtihCategoryByWriterBm(int id);

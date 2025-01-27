@@ -32,13 +32,13 @@ namespace BlogProjesi.Controllers
         [HttpGet]
         public IActionResult BlogAdd()
         {
-            CategoryManager cm= new CategoryManager(new EfCategoryRepository());    
-            List<SelectListItem> categoryValues=(from x in cm.GetList()
-                                                 select new SelectListItem
-                                                 {
-                                                     Text=x.CategoryName,
-                                                     Value=x.CategoryID.ToString()
-                                                 }).ToList();
+            CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+            List<SelectListItem> categoryValues = (from x in cm.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryID.ToString()
+                                                   }).ToList();
             ViewBag.cv = categoryValues;
             return View();
         }
@@ -52,7 +52,7 @@ namespace BlogProjesi.Controllers
             {
                 p.BlogStatus = true;
                 p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID=1;
+                p.WriterID = 1;
 
                 bm.TAdd(p);
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -64,10 +64,15 @@ namespace BlogProjesi.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
-         
-             return View();
-        }
-     
 
+            return View();
+        }
+
+        public IActionResult DeleteBlog(int id)
+        {
+            var blogValue=bm.GetById(id);
+            bm.TDelete(blogValue);
+            return RedirectToAction("BlogListByWriter");
+        }
     }
 }
