@@ -30,7 +30,7 @@ namespace BlogProjesi.Controllers
             return View(values);
         }
         [HttpGet]
-        public IActionResult BlogAdd()
+        public IActionResult AddBlog()
         {
             CategoryManager cm = new CategoryManager(new EfCategoryRepository());
             List<SelectListItem> categoryValues = (from x in cm.GetList()
@@ -43,7 +43,7 @@ namespace BlogProjesi.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult BlogAdd(Blog p)
+        public IActionResult AddBlog(Blog p)
         {
             BlogValidator bv = new BlogValidator();
             ValidationResult results = bv.Validate(p);
@@ -70,8 +70,29 @@ namespace BlogProjesi.Controllers
 
         public IActionResult DeleteBlog(int id)
         {
-            var blogValue=bm.GetById(id);
+            var blogValue = bm.GetById(id);
             bm.TDelete(blogValue);
+            return RedirectToAction("BlogListByWriter");
+        }
+        [HttpGet]
+        public IActionResult EditBlog(int id)
+        {
+            var blogValue=bm.GetById(id);
+            CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+            List<SelectListItem> categoryValues = (from x in cm.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryID.ToString()
+                                                   }).ToList();
+            ViewBag.cv = categoryValues;
+
+            return View(blogValue);
+        }
+        [HttpPost]
+        public IActionResult EditBlog(Blog p)
+        {
+            bm.TUpdate(p);
             return RedirectToAction("BlogListByWriter");
         }
     }
