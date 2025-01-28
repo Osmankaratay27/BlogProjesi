@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogProjesi.ViewComponents.Blog
 {
-    public class BlogLast3Post:ViewComponent
+    public class BlogListDashboard:ViewComponent
     {
-
         BlogManager bm = new BlogManager(new EfBlogRepository());
 
         public IViewComponentResult Invoke()
         {
-            var values = bm.GetLast3Blog();
+            var values = bm.GetBlogListWithCategory().TakeLast(10).ToList();
+            //var values = bm.GetBlogListWithCategory().OrderByDescending(x => x.BlogID).Take(10).ToList(); -> yapılabilir
+
             return View(values);
         }
     }
