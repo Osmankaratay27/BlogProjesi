@@ -12,6 +12,7 @@ namespace BlogProjesi.Controllers
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
+        WriterManager wm = new WriterManager(new EfWriterRepository());
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
@@ -26,7 +27,8 @@ namespace BlogProjesi.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var values = bm.GetBlogListWtihCategoryByWriterBm(1);
+            var user = wm.GetByFilter(User.Identity.Name);
+            var values = bm.GetBlogListWtihCategoryByWriterBm(user.WriterID);
             return View(values);
         }
         [HttpGet]
@@ -45,6 +47,7 @@ namespace BlogProjesi.Controllers
         [HttpPost]
         public IActionResult AddBlog(Blog p)
         {
+            var user = wm.GetByFilter(User.Identity.Name);
             BlogValidator bv = new BlogValidator();
             ValidationResult results = bv.Validate(p);
 
@@ -52,7 +55,7 @@ namespace BlogProjesi.Controllers
             {
                 p.BlogStatus = true;
                 p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID = 1;
+                p.WriterID = user.WriterID;
 
                 bm.TAdd(p);
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -92,6 +95,10 @@ namespace BlogProjesi.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog p)
         {
+            var user = wm.GetByFilter(User.Identity.Name);
+            p.WriterID = user.WriterID;
+            p.BlogCreateDate= DateTime.Parse(DateTime.Now.ToShortDateString());
+            p.BlogStatus = true;
             bm.TUpdate(p);
             return RedirectToAction("BlogListByWriter");
         }

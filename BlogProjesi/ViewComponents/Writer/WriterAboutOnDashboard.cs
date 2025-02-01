@@ -9,7 +9,8 @@ namespace BlogProjesi.ViewComponents.Writer
         WriterManager wm=new WriterManager(new EfWriterRepository());
         public IViewComponentResult Invoke()
         {
-            var values = wm.GetWriterById(1);
+
+            var values = wm.GetByFilter(User.Identity.Name);
             return View(values);
         }
     }

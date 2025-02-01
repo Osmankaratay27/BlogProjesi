@@ -2,18 +2,22 @@
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BlogProjesi.ViewComponents.Writer
+namespace BlogProjesi.Controllers
 {
-    public class WriterMessageNotification : ViewComponent
+    public class MessageController : Controller
     {
         MessageManager mm = new MessageManager(new EfMessageRepository());
-        public IViewComponentResult Invoke()
+        public IActionResult Inbox()
         {
-            int id;
-            id = 1;
+            int id = 1;
             var values = mm.GetInboxListByWriter(id);
             return View(values);
 
+        }
+        public IActionResult MessageDetails(int id)
+        {
+            var values = mm.GetById(id);
+            return View(values);
         }
     }
 }

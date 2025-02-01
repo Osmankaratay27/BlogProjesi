@@ -10,5 +10,7 @@ namespace BusinessLayer.Abstract
 	public interface IWriterService:IGenericService<Writer>
 	{
 		List<Writer> GetWriterById(int id);
-	}
+		 Writer GetByFilter(string p);
+
+    }
 }

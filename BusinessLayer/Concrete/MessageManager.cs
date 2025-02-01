@@ -20,12 +20,12 @@ namespace BusinessLayer.Concrete
 
         public Message GetById(int id)
         {
-            throw new NotImplementedException();
+           return _messageDal.TGetById(id);
         }
 
-        public List<Message> GetInboxListByWriter(string p)
+        public List<Message> GetInboxListByWriter(int id)
         {
-            return _messageDal.GetListAll(x => x.Receiver == p);
+            return _messageDal.GetListWithMessageByWriter(id);
         }
 
         public List<Message> GetList()

@@ -8,13 +8,26 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Concrete
 {
-    public class Context:DbContext
+    public class Context : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=DESKTOP-56OJ44O; database=CoreBlogDb; integrated security=true;TrustServerCertificate=true;");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.WrtierSender)
+                .WithMany(y => y.MessageSender)
+                .HasForeignKey(z => z.SenderID)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Message>()
+            .HasOne(x => x.WriterReceiver)
+            .WithMany(y => y.MessageReceiver)
+            .HasForeignKey(z => z.ReceiverID)
+            .OnDelete(DeleteBehavior.Restrict);
+        }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -25,5 +38,6 @@ namespace DataAccessLayer.Concrete
         public DbSet<BlogRating> BlogRatings { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
+     
     }
 }

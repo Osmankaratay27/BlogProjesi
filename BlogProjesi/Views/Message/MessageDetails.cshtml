@@ -1,0 +1,27 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "MessageDetails";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+
+<h1>Mesaj Detay Sayfası</h1>
+
+
+@Html.HiddenFor(x => x.MessageID, new { @class = "form-control" })
+<br />
+@Html.Label("Konu")
+@Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+<br />
+@Html.Label("Mesaj Tarihi")
+@Html.TextBoxFor(x => x.MessageDate, new { @class = "form-control" })
+<br />
+@Html.Label("Mesaj ")
+@Html.TextAreaFor(x => x.MessageDetails, 10, 3, new { @class = "form-control" })
+<br />
+
+
+<a href="/Message/Inbox" class="btn btn-info">Mesajlara Dön</a>
+
+
+

@@ -29,10 +29,15 @@ namespace BlogProjesi.Controllers
         {
             return PartialView();
         }
+        public IActionResult WriterProfile()
+        {
+            var values = wm.GetByFilter(User.Identity.Name);
+            return View(values);
+        }
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var values = wm.GetById(1);
+            var values = wm.GetByFilter(User.Identity.Name);
             return View(values);
         }
         [HttpPost]

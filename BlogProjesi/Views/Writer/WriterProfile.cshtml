@@ -1,0 +1,71 @@
+﻿@model Writer
+@{
+    ViewData["Title"] = "WriterProfile";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Yazar Profil Bilgileri</h4>
+            <br />
+            @Html.HiddenFor(x => x.WriterID)
+            @Html.HiddenFor(x => x.WriterStatus)
+            <form class="forms-sample">
+                <div class="form-group d-flex align-items-start">
+                    <div>
+                        <label>Yazar Görsel</label>
+                        <br />
+                        <img src="@Model.WriterImage" alt="Yazar Görseli" class="img-fluid rounded"
+                             style="max-width: 150px; height: auto; margin-right: 15px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <div class="form-group">
+                            <label>Yazar Ad Soyad</label>
+                            @Html.TextBoxFor(x => x.WriterName, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="form-group">
+                            <label>Mail Adresi</label>
+                            @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="form-group">
+                            <label>Şifre</label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(x => x.WriterPassword, new { @class = "form-control", id = "passwordField", type = "password", @readonly = "readonly" })
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-light" onclick="togglePassword()">
+                                        <i class="fa fa-eye" id="toggleEye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Yazar Hakkında</label>
+                    @Html.TextAreaFor(x => x.WriterAbout, 10, 3, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+                <a href="/Writer/WriterEditProfile" class="btn btn-gradient-primary mr-2">Profili Düzenle</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("passwordField");
+        var toggleIcon = document.getElementById("toggleEye");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleIcon.classList.remove("fa-eye");
+            toggleIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            toggleIcon.classList.remove("fa-eye-slash");
+            toggleIcon.classList.add("fa-eye");
+        }
+    }
+</script>
+<!-- İconlar için gerekli -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
