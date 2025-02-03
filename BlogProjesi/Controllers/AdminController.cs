@@ -8,5 +8,9 @@ namespace BlogProjesi.Controllers
         {
             return View();
         }
+        public PartialViewResult AdminNavbarPartial()
+        {
+            return PartialView();
+        }
     }
 }
