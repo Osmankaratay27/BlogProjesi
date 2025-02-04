@@ -1,5 +1,6 @@
 ﻿using BlogProjesi.Areas.Admin.Models;
 using ClosedXML.Excel;
+using DataAccessLayer.Concrete;
 using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +28,8 @@ namespace BlogProjesi.Areas.Admin.Controllers
                 using (var stream = new MemoryStream())
                 {
                     workbook.SaveAs(stream);
-                    var content=stream.ToArray();
-                    return File(content,"application/vnd.openxmlformats-officedocument.spreadsheet.ml.sheet","Calisma1.xlsx");
+                    var content = stream.ToArray();
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheet.ml.sheet", "Calisma1.xlsx");
                 }
             }
 
@@ -47,6 +48,50 @@ namespace BlogProjesi.Areas.Admin.Controllers
         }
 
         public IActionResult BlogListExcel()
+        {
+            return View();
+        }
+
+        public IActionResult ExportDynamicExcelBlogList()
+        {
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Blog Listesi");
+                worksheet.Cell(1, 1).Value = "Blog ID";
+                worksheet.Cell(1, 2).Value = "Blog Adı";
+
+                int BlogRowCount = 2;
+                foreach (var item in BlogTitleList())
+                {
+                    worksheet.Cell(BlogRowCount, 1).Value = item.ID;
+                    worksheet.Cell(BlogRowCount, 2).Value = item.BlogName;
+                    BlogRowCount++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, "application/vnd.openxmlformats-officedocument.spreadsheet.ml.sheet", "Calisma1.xlsx");
+                }
+            }
+
+        }
+        public List<BlogModel> BlogTitleList()
+        {
+            List<BlogModel> bm = new List<BlogModel>();
+            using (var c = new Context())
+            {
+                bm = c.Blogs.Select(x => new BlogModel
+                {
+                    ID = x.BlogID,
+                    BlogName = x.BlogTitle
+                }).ToList();
+            }
+            return bm;
+
+        }
+        public IActionResult BlogTitleListExcel()
         {
             return View();
         }
