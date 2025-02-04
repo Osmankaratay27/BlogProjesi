@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250204145516_mid_add_AdminTable")]
-    partial class mid_add_AdminTable
+    [Migration("20250204145909_mid_add_AdminTableFixed")]
+    partial class mid_add_AdminTableFixed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
