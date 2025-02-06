@@ -23,6 +23,13 @@ namespace BlogProjesi.Areas.Admin.Controllers
             var jsonWriters = JsonConvert.SerializeObject(w);
             return Json(jsonWriters);
         }
+        [HttpPost]
+        public IActionResult DeleteWriter(int id)
+        {
+          var writer=writers.FirstOrDefault(x => x.Id == id);
+           writers.Remove(writer);
+            return Json(writer);
+        }
         public IActionResult GetWriterByID(int writerid)
         {
             var findWriter=writers.FirstOrDefault(x => x.Id == writerid);
