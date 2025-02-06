@@ -30,6 +30,15 @@ namespace BlogProjesi.Areas.Admin.Controllers
            writers.Remove(writer);
             return Json(writer);
         }
+        [HttpPost]
+        public IActionResult UpdateWriter(WriterClass w)
+        {
+            var writer = writers.FirstOrDefault(x => x.Id == w.Id);
+           writer.Name= w.Name;
+            var jsonWriters = JsonConvert.SerializeObject(w);
+            return Json(jsonWriters);
+       
+        }
         public IActionResult GetWriterByID(int writerid)
         {
             var findWriter=writers.FirstOrDefault(x => x.Id == writerid);
