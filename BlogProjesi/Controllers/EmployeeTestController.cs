@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace BlogProjesi.Controllers
 {
@@ -13,7 +14,24 @@ namespace BlogProjesi.Controllers
             var values = JsonConvert.DeserializeObject<List<Class1>>(jsonString);
             return View(values);
         }
-
+        [HttpGet]
+        public IActionResult AddEmployee()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddEmployee(Class1 p)
+        {
+            var httpClient = new HttpClient();
+            var jsonEmployee=JsonConvert.SerializeObject(p);
+            StringContent content = new StringContent(jsonEmployee,Encoding.UTF8,"application/json");
+            var responsMessage = await httpClient.PostAsync("https://localhost:44328/api/Default/EmployeeAdd", content);
+            if (responsMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(p);
+        }
         public class Class1
         {
             public int ID { get; set; }
