@@ -57,5 +57,25 @@ namespace BlogAPI.Controllers
                 return Ok();
             }
         }
+
+        [HttpPut]
+        public IActionResult EmployeeUpdate(Employee employee)
+        {
+            using var c = new Context();
+            var emp= c.Employees.Find(employee.ID);
+            if(emp == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                emp.Name = employee.Name;
+                c.Employees.Update(emp);
+                c.SaveChanges();
+
+                return Ok();
+            }
+        }
+
     }
 }
