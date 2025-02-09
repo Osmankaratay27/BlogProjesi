@@ -21,6 +21,7 @@ namespace BlogAPI.Controllers
             using var c = new Context();
             c.Employees.Add(employee);
             c.SaveChanges();
+
             return Ok();
 
         }
