@@ -29,7 +29,7 @@ namespace BlogAPI.Controllers
         public IActionResult EmployeeGet(int id)
         {
             using var c = new Context();
-           var employee= c.Employees.Find(id);
+            var employee = c.Employees.Find(id);
             if (employee == null)
             {
                 return NotFound();
@@ -40,6 +40,22 @@ namespace BlogAPI.Controllers
             }
 
         }
-        
+
+        [HttpDelete("{id}")]
+        public IActionResult EmployeeDelete(int id)
+        {
+            using var c = new Context();
+            var employee = c.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                c.Employees.Remove(employee);
+                c.SaveChanges();
+                return Ok();
+            }
+        }
     }
 }
