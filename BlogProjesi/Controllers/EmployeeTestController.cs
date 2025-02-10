@@ -59,6 +59,17 @@ namespace BlogProjesi.Controllers
             return View(p);
 
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var httpClient = new HttpClient();
+            var responseMessage=await httpClient.DeleteAsync("https://localhost:44328/api/Default/EmployeeDelete/" + id);
+            if(responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
         public class Class1
         {
             public int ID { get; set; }
