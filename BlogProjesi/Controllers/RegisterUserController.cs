@@ -36,7 +36,7 @@ namespace BlogProjesi.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Blog");
+                    return RedirectToAction("Index", "Login");
                 }
                 else
                 {
