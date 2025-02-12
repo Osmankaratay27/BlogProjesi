@@ -9,7 +9,7 @@
 		<h3 class="tittle">Oturum Aç</h3>
 		<div class="row inner-sec">
 			<div class="login p-5 bg-light mx-auto mw-100">
-				<form action="#" method="post">
+				<form action="/Login/Index" method="post">
 					<div class="form-group">
 						<label for="exampleInputEmail1 mb-2">Kullanıcı Adınız</label>
 						<input type="text" class="form-control" id="exampleInputEmail1" asp-for="@Model.username"  placeholder="" >
@@ -23,7 +23,7 @@
 						<label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
 					</div>
 					<button type="submit" class="btn btn-primary submit mb-4">Sign In</button>
-					<p><a href="/Register/Index"> Bir hesabın yok mu?</a></p>
+					<p><a href="/RegisterUser/Index"> Bir hesabın yok mu?</a></p>
 				</form>
 			</div>
 		</div>

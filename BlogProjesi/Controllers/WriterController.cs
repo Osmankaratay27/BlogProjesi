@@ -1,6 +1,7 @@
 ﻿using BlogProjesi.Models;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation;
@@ -13,6 +14,7 @@ namespace BlogProjesi.Controllers
     public class WriterController : Controller
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
+        Context c = new Context();
         public IActionResult Index()
         {
             return View();
@@ -31,13 +33,17 @@ namespace BlogProjesi.Controllers
         }
         public IActionResult WriterProfile()
         {
-            var values = wm.GetByFilter(User.Identity.Name);
+            var userName = User.Identity.Name;
+            var userMail = c.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var values = wm.GetByFilter(userMail);
             return View(values);
         }
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var values = wm.GetByFilter(User.Identity.Name);
+            var userName = User.Identity.Name;
+            var userMail = c.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            var values = wm.GetByFilter(userMail);
             return View(values);
         }
         [HttpPost]
