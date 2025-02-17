@@ -1,0 +1,33 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "SendMessage";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Yeni Mesaj Oluşturma</h1>
+
+@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
+{
+    <label for="receiverSelect">Alıcı E-Posta:</label>
+    @Html.DropDownListFor(x => x.ReceiverID, (List<SelectListItem>)ViewBag.RecieverUser, new { @class = "form-control select2", @id = "receiverSelect" })
+    <br />
+    @Html.Label("Konu")
+    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+    <br />
+    @Html.Label("Mesajınız")
+    @Html.TextAreaFor(x => x.MessageDetails, 15, 3, new { @class = "form-control" })
+    <br />
+
+    <button class="btn btn-info">Mesajı Gönder</button>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#receiverSelect').select2({
+            placeholder: "Alıcı seçin veya yazın...",
+            allowClear: true,
+            width: '100%',
+            tags: true  // Kullanıcı yeni bir e-posta yazabilsin
+        });
+    });
+</script>
