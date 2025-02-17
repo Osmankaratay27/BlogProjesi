@@ -1,79 +1,47 @@
-﻿@model Writer
+﻿@model UserUpdateViewModel
 
 @{
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
-@using (Html.BeginForm("WriterEditProfile", "Writer", FormMethod.Post))
-{
+
 
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Yazar Profil Bilgileri Düzenleme </h4>
                 <br />
-                @Html.HiddenFor(x => x.WriterID, new { @class = "form-control" })
-                @Html.HiddenFor(x => x.WriterStatus, new { @class = "form-control" })
-                @Html.HiddenFor(x => x.WriterImage, new { @class = "form-control" })
-                <form class="forms-sample">
+                <form class="forms-sample" method="post">
                     <div class="form-group">
                         <label for="exampleInputName1">Yazar Ad Soyad</label>
-                        @Html.TextBoxFor(x => x.WriterName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.WriterName)
+                        @Html.TextBoxFor(x => x.namesurname, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Mail Adresi</label>
-                        @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.WriterMail)
+                        @Html.TextBoxFor(x => x.mail, new { @class = "form-control" })
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword4">Şifre</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="exampleInputPassword4" asp-for="WriterPassword" name="pass1" placeholder="Şifre Girin">
-                            <div class="input-group-append">
-                                <span class="input-group-text" onclick="togglePassword('exampleInputPassword4', 'eyeIcon1')">
-                                    <i id="eyeIcon1" class="fa fa-eye"></i>
-                                </span>
-                            </div>
-                        </div>
-                        @Html.ValidationMessageFor(x => x.WriterPassword)
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword5">Şifreyi Doğrulayın</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="exampleInputPassword5" asp-for="WriterPassword" name="pass2" placeholder="Şifreyi tekrar girin">
-                            <div class="input-group-append">
-                                <span class="input-group-text" onclick="togglePassword('exampleInputPassword5', 'eyeIcon2')">
-                                    <i id="eyeIcon2" class="fa fa-eye"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <p class="text text-danger">@ViewBag.hata</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Yazar Görsel</label>
-                        <input type="file" name="img[]" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Resim Seç">
-                            <span class="input-group-append">
-                                <button class="file-upload-browse btn btn-gradient-primary" type="button">Resim Seç</button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleTextarea1">Yazar Hakkında </label>
-                        @Html.TextAreaFor(x => x.WriterAbout, 10, 3, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.WriterAbout)
-                    </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Kullanıcı Adı</label>
+                    @Html.TextBoxFor(x => x.username, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Resim Yolu</label>
+                    @Html.TextBoxFor(x => x.imageurl, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Yeni Şifreniz</label>
+                    @Html.TextBoxFor(x => x.password, new { @class = "form-control" })
+                </div>
+                   
                     <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
+                    <button asp-controller="Dashboard" asp-action="Index" class="btn btn-ligth">İptal</button>
                 </form>
             </div>
         </div>
     </div>
 
 
-}
+
 
 <script>
     function togglePassword(inputId, iconId) {

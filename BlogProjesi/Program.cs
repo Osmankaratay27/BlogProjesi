@@ -34,7 +34,7 @@ builder.Services.ConfigureApplicationCookie(optipns =>
 {
     //Cookie settings
     optipns.Cookie.HttpOnly = true;
-    optipns.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    optipns.ExpireTimeSpan = TimeSpan.FromMinutes(100);
 
     optipns.LoginPath = "/Login/Index";
     optipns.SlidingExpiration = true;

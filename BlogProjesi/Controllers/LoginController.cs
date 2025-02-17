@@ -40,6 +40,12 @@ namespace BlogProjesi.Controllers
           
            return View();
         }
+
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Login");
+        }
         //Identity olmadan önceki Claim ile yazılışı
         //[HttpPost]
         //public async Task<IActionResult> Index(Writer p)

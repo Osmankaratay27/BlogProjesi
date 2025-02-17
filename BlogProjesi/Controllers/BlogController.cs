@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using System.Security.Claims;
 
 namespace BlogProjesi.Controllers
 {
@@ -14,6 +16,7 @@ namespace BlogProjesi.Controllers
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
         WriterManager wm = new WriterManager(new EfWriterRepository());
+        Context c = new Context();
 
         [AllowAnonymous]
         public IActionResult Index()
@@ -30,8 +33,9 @@ namespace BlogProjesi.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var user = wm.GetByFilter(User.Identity.Name);
-            var values = bm.GetBlogListWtihCategoryByWriterBm(user.WriterID);
+            //ID bulmak için 
+            var UserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var values = bm.GetBlogListWtihCategoryByWriterBm(UserId);
             return View(values);
         }
         [HttpGet]
@@ -50,7 +54,6 @@ namespace BlogProjesi.Controllers
         [HttpPost]
         public IActionResult AddBlog(Blog p)
         {
-            var user = wm.GetByFilter(User.Identity.Name);
             BlogValidator bv = new BlogValidator();
             ValidationResult results = bv.Validate(p);
 
@@ -58,7 +61,7 @@ namespace BlogProjesi.Controllers
             {
                 p.BlogStatus = true;
                 p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID = user.WriterID;
+                p.WriterID = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
                 bm.TAdd(p);
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -83,7 +86,7 @@ namespace BlogProjesi.Controllers
         [HttpGet]
         public IActionResult EditBlog(int id)
         {
-            var blogValue=bm.GetById(id);
+            var blogValue = bm.GetById(id);
             CategoryManager cm = new CategoryManager(new EfCategoryRepository());
             List<SelectListItem> categoryValues = (from x in cm.GetList()
                                                    select new SelectListItem
@@ -98,9 +101,8 @@ namespace BlogProjesi.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog p)
         {
-            var user = wm.GetByFilter(User.Identity.Name);
-            p.WriterID = user.WriterID;
-            p.BlogCreateDate= DateTime.Parse(DateTime.Now.ToShortDateString());
+            p.WriterID = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             p.BlogStatus = true;
             bm.TUpdate(p);
             return RedirectToAction("BlogListByWriter");
