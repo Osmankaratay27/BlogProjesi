@@ -1,6 +1,6 @@
 ﻿@model Message
 @{
-    ViewData["Title"] = "SendMessage";
+    ViewData["Title"] = "Yeni Mesaj Oluşturma";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
@@ -8,26 +8,55 @@
 
 @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
 {
-    <label for="receiverSelect">Alıcı E-Posta:</label>
-    @Html.DropDownListFor(x => x.ReceiverID, (List<SelectListItem>)ViewBag.RecieverUser, new { @class = "form-control select2", @id = "receiverSelect" })
+    <div class="form-group">
+        <label for="receiverSearch">Alıcı E-Posta:</label>
+
+        <!-- Arama Kutusu -->
+        <input type="text" id="receiverSearch" class="form-control" placeholder="Alıcı ara..." onkeyup="filterRecipients()">
+        <br />
+        <!-- Dropdown (Select List) -->
+        <select id="receiverSelect" name="ReceiverID" class="form-control">
+            <option value="">-- Alıcı Seçin --</option>
+            @foreach (var item in (List<SelectListItem>)ViewBag.RecieverUser)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
+    </div>
+
     <br />
-    @Html.Label("Konu")
+    
+    <label>Konu</label>
     @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
     <br />
-    @Html.Label("Mesajınız")
+
+    <label>Mesajınız</label>
     @Html.TextAreaFor(x => x.MessageDetails, 15, 3, new { @class = "form-control" })
     <br />
 
-    <button class="btn btn-info">Mesajı Gönder</button>
+    <button type="submit" class="btn btn-info">Mesajı Gönder</button>
 }
 
+
 <script>
-    $(document).ready(function () {
-        $('#receiverSelect').select2({
-            placeholder: "Alıcı seçin veya yazın...",
-            allowClear: true,
-            width: '100%',
-            tags: true  // Kullanıcı yeni bir e-posta yazabilsin
-        });
-    });
+    function filterRecipients() {
+        let input = document.getElementById("receiverSearch").value.toUpperCase();
+        let select = document.getElementById("receiverSelect");
+        let found = false;
+
+        for (let i = 0; i < select.options.length; i++) {
+            let txtValue = select.options[i].text.toUpperCase();
+
+            if (txtValue.indexOf(input) > -1 && input.length > 0) {
+                select.selectedIndex = i; // Aranan kişiyi seçili yap
+                found = true;
+                break; // İlk eşleşeni seç ve çık
+            }
+        }
+
+        // Eğer eşleşen bulunamazsa, seçimi sıfırla
+        if (!found) {
+            select.selectedIndex = 0;
+        }
+    }
 </script>

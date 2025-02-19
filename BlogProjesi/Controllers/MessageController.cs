@@ -57,7 +57,6 @@ namespace BlogProjesi.Controllers
         {
             int id = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             p.SenderID = id;
-            p.ReceiverID = 3;
             p.MessageStatus = true;
             p.MessageDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             mm.TAdd(p);
