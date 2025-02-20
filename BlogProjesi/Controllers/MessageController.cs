@@ -60,7 +60,7 @@ namespace BlogProjesi.Controllers
             p.MessageStatus = true;
             p.MessageDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             mm.TAdd(p);
-            return RedirectToAction("Inbox");
+            return RedirectToAction("Sendbox");
         }
     }
 }
