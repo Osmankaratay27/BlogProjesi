@@ -30,17 +30,17 @@ namespace BlogProjesi.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async  Task<IActionResult> AddRole(RoleViewModel p)
+        public async Task<IActionResult> AddRole(RoleViewModel p)
         {
             if (ModelState.IsValid)
             {
-                AppRole role=new AppRole
+                AppRole role = new AppRole
                 {
-                    Name=p.name
+                    Name = p.name
                 };
 
-                var result =await _roleManager.CreateAsync(role);
-                if(result.Succeeded)
+                var result = await _roleManager.CreateAsync(role);
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
@@ -57,7 +57,7 @@ namespace BlogProjesi.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult UpdateRole(int id)
         {
-            var values=_roleManager.Roles.FirstOrDefault(x => x.Id == id);
+            var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
             RoleUpdateViewModel model = new RoleUpdateViewModel
             {
                 Id = values.Id,
@@ -72,19 +72,19 @@ namespace BlogProjesi.Areas.Admin.Controllers
 
             values.Name = model.name;
             var result = await _roleManager.UpdateAsync(values);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return RedirectToAction("Index");
             }
-          
+
             return View(model);
         }
 
         public async Task<IActionResult> DeleteRole(int id)
         {
-            var values=_roleManager.Roles.FirstOrDefault(x=>x.Id == id);
-            var result=await _roleManager.DeleteAsync(values); 
-            if(result.Succeeded) 
+            var values = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
+            var result = await _roleManager.DeleteAsync(values);
+            if (result.Succeeded)
             {
                 return RedirectToAction("Index");
             }
@@ -97,26 +97,46 @@ namespace BlogProjesi.Areas.Admin.Controllers
             return View(values);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AssignRole(int id)
         {
-            var user= _userManager.Users.FirstOrDefault(x=>x.Id == id);
-            var roles=_roleManager.Roles.ToList();
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
 
-            TempData["Userid"] = user.Id;
+            TempData["UserId"] = user.Id;
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            List<RoleAssignViewModel> model=new List<RoleAssignViewModel>();
+            List<RoleAssignViewModel> model = new List<RoleAssignViewModel>();
             foreach (var item in roles)
             {
                 RoleAssignViewModel m = new RoleAssignViewModel();
-                m.RoleID= item.Id;
-                m.Name= item.Name;
+                m.RoleID = item.Id;
+                m.Name = item.Name;
                 m.Exists = userRoles.Contains(item.Name);
                 model.Add(m);
-            } 
+            }
 
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
+        {
+            var userId = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
+
+            foreach (var item in model)
+            {
+                if (item.Exists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.Name);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.Name);
+                }
+            }
+            return RedirectToAction("UserRoleList");
         }
     }
 }
